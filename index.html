@@ -1,0 +1,72 @@
+<!-- QUESTION: 
+    
+    Fetch data with an API
+This task is for fetching movies data by searching in a search bar.
+Create a search bar and a search button to search any movie by its title.
+Use this api 
+http://www.omdbapi.com/?apikey=AIzaSyBartZfNH_sqon8B17UQzIEUwduL-9qI9U&, generate your api key by signing up.
+Call the above api with the title parameter when searched.
+Use promises and get data from the api and present it in a div below the search bar.
+Div should contain movie poster, movie title,  year of release, IMDB rating, cast and crew.
+API to get poster images of movies http://img.omdbapi.com/?apikey=[yourkey]&. -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="input" placeholder="search the movie" />
+    <button id="search">Search</button>
+    <div id="results" style="padding: 20px">
+    </div>
+    <script>
+        const button = document.getElementById('search');
+        const movie = document.getElementById('input');
+        const displayResult = document.getElementById('results')
+        console.log(name)
+        
+        //using Fetch
+
+        button.addEventListener('click', function (event) {
+            let name = movie.value;
+            let apiKey = 'abbd1345';
+            let url = `http://www.omdbapi.com/?apikey=${apiKey}&t=${name}`;
+            const image = `http://img.omdbapi.com/?apikey=${apiKey}&`;
+
+            fetch(url)
+                .then((response) => response.json())
+                .then((res) => {
+                    let result = res;
+                    console.log(result);
+                    const display = `
+                    <div>
+                    <div><img src=${result.Poster} alt=${result.Title}/></div>
+
+                    <h3>Title : ${result.Title}</h3>
+
+                    <div>Released Date : ${result.Released}</div>
+
+                    <div>IMBD rating : ${result.imdbRating}</div>
+
+                    <div>Actors : ${result.Actors}</div>
+
+                    <div> Director: ${result.Director}
+                    </div>`
+
+                    displayResult.innerHTML += display
+
+                })
+            .catch((error)=>console.log(error))
+        })
+
+    </script>
+
+</body>
+
+</html>
